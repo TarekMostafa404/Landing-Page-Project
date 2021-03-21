@@ -22,17 +22,8 @@ const navList = document.querySelector("#navbar__list");
 const fragment = document.createDocumentFragment();
 const sectionElement = document.querySelectorAll("section");
 
-/**
- * End Global Variables
- * Start Helper Functions
- *
- */
 
-/**
- * End Helper Functions
- * Begin Main Functions
- *
- */
+// build the nav
 
 sectionElement.forEach(function(section) {
     const navLi = document.createElement("li");
@@ -44,25 +35,33 @@ sectionElement.forEach(function(section) {
     anchor.addEventListener("click", scrollToSection);
 
     navLi.appendChild(anchor);
+
     fragment.appendChild(navLi);
 });
 
-
-// build the nav
-
 navList.appendChild(fragment);
+
+
+// Scroll to section on link click
+
+function scrollToSection(event) {
+    event.preventDefault();
+
+    const sectionId = this.getAttribute("href");
+
+    const sectionElement = document.querySelector(sectionId);
+    sectionElement.scrollIntoView({ block: "center", behavior: "smooth" });
+}
+
 
 // Add class 'active' to section when near top of viewport
 
 if (!!window.IntersectionObserver) {
+
     let observer = new IntersectionObserver(function(sectionElement, observer) {
         sectionElement.forEach(function(section) {
             if (section.isIntersecting) {
                 section.target.className = "your-active-class";
-
-                const sectionId = section.target.id;
-
-                // observer.unobserve(section.target);
             } else {
                 section.target.className = "";
             }
@@ -72,24 +71,4 @@ if (!!window.IntersectionObserver) {
     document.querySelectorAll("section").forEach(function(section) {
         observer.observe(section);
     });
-}
-
-// Scroll to anchor ID using scrollTO event
-
-/**
- * End Main Functions
- * Begin Events
- *
- */
-
-// Build menu
-
-// Scroll to section on link click
-
-function scrollToSection(event) {
-    event.preventDefault();
-
-    const sectionId = this.getAttribute("href");
-    const sectionElement = document.querySelector(sectionId);
-    sectionElement.scrollIntoView({ block: "center", behavior: "smooth" });
 }
