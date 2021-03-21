@@ -56,6 +56,9 @@ function scrollToSection(event) {
 
 // Add class 'active' to section when near top of viewport
 
+// I modify the example on this site
+// https://css-tricks.com/a-few-functional-uses-for-intersection-observer-to-know-when-an-element-is-in-view/
+
 if (!!window.IntersectionObserver) {
 
     let observer = new IntersectionObserver(function(sectionElement, observer) {
